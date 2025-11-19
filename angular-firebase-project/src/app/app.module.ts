@@ -77,13 +77,7 @@ import { CommonModule } from "@angular/common";
     provideHttpClient(),
     provideFirebaseApp(() =>
       initializeApp({
-        projectId: "ang-firebase-project-mar-aplha",
-        appId: "1:674596689684:web:37446d42095259c1f95401",
-        storageBucket: "ang-firebase-project-mar-aplha.firebasestorage.app",
-        apiKey: "AIzaSyBWVr36Up-R3o4Djv3Y_fU0ZMszFbHclfE",
-        authDomain: "ang-firebase-project-mar-aplha.firebaseapp.com",
-        messagingSenderId: "674596689684",
-        measurementId: "G-54BW3KCE72",
+        // The web app's Firebase configuration
       })
     ),
 
