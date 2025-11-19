@@ -1,0 +1,14 @@
+.star-rating {
+  position: relative;
+  display: inline-block;
+
+  color: #ccc;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  color: #d97e3b;
+}

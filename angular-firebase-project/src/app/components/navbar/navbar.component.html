@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg shadow custom-navbar">
+  <button
+    class="navbar-toggler ms-4"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- <a class="navbar-brand ms-3 fw-bold fs-4" href="#"></a> -->
+  <img
+    class="navbar-brand mx-4"
+    src="../../../assets/BB-logo.svg"
+    alt="logo"
+    routerLink=""
+  />
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#" routerLink="discover">Discover</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" routerLink="store">Store</a>
+      </li>
+      <li class="nav-item d-flex align-items-center">
+        <a class="nav-link" href="#" routerLink="profile">MyProfile</a>
+        <img
+          *ngIf="!router.url.startsWith('/profile')"
+          [src]="avatarPath"
+          alt="User_avatar"
+          class="avatar"
+        />
+      </li>
+    </ul>
+  </div>
+
+  <!-- JOBB OLDAL: Login/Signup gomb -->
+  <div
+    class="d-flex ms-auto me-4"
+    *ngIf="!(loggedInStatus$ | async); else loggedIn"
+  >
+    <a routerLink="/registration-login" class="btn me-3 rounded-pill login"
+      >Log In / Sign Up</a
+    >
+    <!-- <a routerLink="/signup" class="btn rounded-pill signup">Sign Up</a> -->
+  </div>
+
+  <!-- JOBB OLDAL: Logout gomb -->
+  <ng-template #loggedIn>
+    <div class="d-flex ms-auto me-4">
+      <button class="btn me-3 rounded-pill logout" (click)="logout()">
+        Log Out
+      </button>
+    </div>
+  </ng-template>
+</nav>

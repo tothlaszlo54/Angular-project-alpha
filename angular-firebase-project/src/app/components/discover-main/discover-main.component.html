@@ -1,0 +1,90 @@
+<div class="main-container">
+  <section class="main-content">
+    <!-- Search bar, Hero -->
+    <app-search-bar (clickEvent)="searchClicked($event)"></app-search-bar>
+
+    <app-hero *ngIf="!searchOrGenreButtonClicked"></app-hero>
+
+    <!-- Mobilon jelenjen meg (Genre selector)-->
+    <div class="mobile-genre" *ngIf="!searchOrGenreButtonClicked">
+      <app-genre-selector
+        (genreSelected)="genreClicked($event)"
+      ></app-genre-selector>
+    </div>
+
+    <!-- Találatok -->
+    <section *ngIf="searchOrGenreButtonClicked">
+      <!-- Pontos találat -->
+      <div
+        class="exact-match-container"
+        [ngClass]="{ 'single-result': relatedBooks.length === 0 }"
+      >
+        <app-book-card
+          *ngIf="exactMatchBook"
+          [book]="exactMatchBook"
+        ></app-book-card>
+      </div>
+
+      <!-- További találatok szöveg és Go back gomb -->
+      <div class="textAndBackButton d-flex justify-content-between">
+        <h3 class="interested-text" *ngIf="relatedBooks.length > 0">
+          {{
+            selectedGenre
+              ? selectedGenre + " books:"
+              : "You may also be interested in:"
+          }}
+        </h3>
+        <button class="btn" (click)="resetView()">Go Back</button>
+      </div>
+
+      <!-- GRID a többi találatokhoz -->
+      <div class="books-grid">
+        <app-book-card
+          *ngFor="let b of relatedBooks"
+          [book]="b"
+        ></app-book-card>
+      </div>
+    </section>
+
+    <!-- Carousel-ek -->
+    <div class="first-carousel">
+      <h3>NEW RELEASES THIS YEAR:</h3>
+      <app-carousel [books]="newReleases"></app-carousel>
+      <button
+        type="button"
+        class="btn btn-success mt-3 btn-go-store mx-auto d-block"
+      >
+        <a routerLink="/store" class="">Go to Store</a>
+      </button>
+    </div>
+
+    <div class="middle-carousel">
+      <h3>MOST POPULAR THIS YEAR:</h3>
+      <app-carousel [books]="mostPopular"></app-carousel>
+      <button
+        type="button"
+        class="btn btn-success mt-3 btn-go-store mx-auto d-block"
+      >
+        <a routerLink="/store" class="">Go to Store</a>
+      </button>
+    </div>
+
+    <div class="last-carousel">
+      <h3>BEST SELECTION FOR YOU:</h3>
+      <app-carousel [books]="bestForYou"></app-carousel>
+      <button
+        type="button"
+        class="btn btn-success mt-3 btn-go-store mx-auto d-block"
+      >
+        <a routerLink="/store" class="">Go to Store</a>
+      </button>
+    </div>
+  </section>
+
+  <!-- Desktopon oldalsáv (Genre selector)-->
+  <app-genre-selector
+    class="desktop-genre"
+    *ngIf="!searchOrGenreButtonClicked"
+    (genreSelected)="genreClicked($event)"
+  ></app-genre-selector>
+</div>

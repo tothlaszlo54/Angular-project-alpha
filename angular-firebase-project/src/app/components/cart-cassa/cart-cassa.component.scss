@@ -1,0 +1,46 @@
+.row {
+  background-color: #dde7c7;
+}
+
+.container {
+  padding: 20px;
+  border: 2px solid #435f0a;
+  border-radius: 1rem;
+  max-width: 400px;
+  margin: auto;
+  background-color: #f5e2c2e7;
+  box-shadow: 4px 4px 12px #000;
+}
+
+h2 {
+  text-align: center;
+}
+
+.btn-disabled {
+  background-color: #525252fd;
+  color: #dde7c7;
+  border-radius: 0.5rem;
+  border: none;
+  box-shadow: 2px 2px 1px rgb(27, 47, 37) inset;
+}
+
+.btn-sold {
+  background-color: #ff631af7;
+  color: #dde7c7;
+  text-shadow: 2px 2px #000;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-sold:hover {
+  transform: scale(1.15);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+input {
+  background-color: #cedbf4;
+  font-weight: 600;
+  font-size: large;
+}

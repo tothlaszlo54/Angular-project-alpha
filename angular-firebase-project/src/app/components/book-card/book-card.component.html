@@ -1,0 +1,12 @@
+<div class="card h-100" (click)="navigateBookDetails(book.id)">
+  <div class="img-container">
+    <img [src]="book.imageLink" class="card-img-top" alt="..." />
+  </div>
+
+  <div class="card-body d-flex justify-content-center align-items-end">
+    <div class="text-container">
+      <p class="card-text card-title">{{ book.authors.join(", ") }}:</p>
+      <p class="card-text card-title">{{ book.title }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,156 @@
+<div class="row gy-5">
+  <div
+    class="col-12 col-sm-6 col-md-3"
+    *ngFor="let book of books.slice((page - 1) * pageSize, page * pageSize)"
+  >
+    <div
+      class="card h-100"
+      [attr.data-bs-toggle]="shelfName === 'currentlyReading' ? 'modal' : null"
+      [attr.data-bs-target]="
+        shelfName === 'currentlyReading' ? '#currentlyReadingModal' : null
+      "
+      (click)="navigateOrSetModal(book)"
+    >
+      <div class="img-container">
+        <img [src]="book.imageLink" class="card-img-top" alt="..." />
+      </div>
+
+      <div class="card-body d-flex justify-content-center align-items-end">
+        <div class="text-container">
+          <p class="card-text card-title">{{ book.authors.join(", ") }}:</p>
+          <p class="card-text card-title">{{ book.title }}</p>
+          <div
+            *ngIf="book.currentPage"
+            class="progress"
+            role="progressbar"
+            aria-label="Success example"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <div
+              class="progress-bar text-bg-success"
+              [ngStyle]="{
+                width: (book.currentPage! / book.pageCount) * 100 + '%'
+              }"
+            >
+              {{
+                ((book.currentPage! / book.pageCount) * 100).toFixed(0) + "% "
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGINATION -->
+<nav *ngIf="books.length > 0; else loading" class="mt-5">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="page === 1">
+      <a class="page-link" (click)="setPage(page - 1)">Previous</a>
+    </li>
+    <li
+      *ngFor="let n of [].constructor(maxPages); let i = index"
+      class="page-item"
+      [class.disabled]="page === i + 1"
+    >
+      <a class="page-link" (click)="setPage(i + 1)">{{ i + 1 }}</a>
+    </li>
+
+    <li class="page-item" [class.disabled]="page === maxPages">
+      <a class="page-link" (click)="setPage(page + 1)">Next</a>
+    </li>
+  </ul>
+</nav>
+<!-- LOADING -->
+<ng-template #loading><p class="loading-text">Loading...</p></ng-template>
+
+<!-- CURRENTLY READING MODAL -->
+<div
+  class="modal fade modal-text"
+  id="currentlyReadingModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          {{ modalBook?.title }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row my-4">
+            <div class="col-4 d-flex justify-content-center">
+              <img [src]="modalBook?.imageLink" [alt]="modalBook?.title" />
+            </div>
+            <div class="col-8">
+              <div class="container">
+                <div class="row my-3">
+                  <div class="col">
+                    <p>
+                      You have read {{ modalBook?.currentPage }} of
+                      {{ modalBook?.pageCount }} pages
+                    </p>
+                    <div
+                      class="progress progress-height"
+                      role="progressbar"
+                      aria-label="Success example"
+                      aria-valuenow="25"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      <div
+                        class="progress-bar text-bg-success progress-height"
+                        [ngStyle]="{
+                          width:
+                            (modalBook
+                              ? modalBook.currentPage! / modalBook.pageCount
+                              : 0) *
+                              100 +
+                            '%'
+                        }"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col">
+                    <label for="page">Current Page:</label>
+                    <input
+                      id="page"
+                      type="text"
+                      class="form-control border border-dark border-1"
+                      [(ngModel)]="currentPage"
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col justify-content-end d-flex">
+                    <button
+                      class="btn btn-outline-dark border border-dark border-2 fw-bold shadow"
+                      (click)="setCurrentPage(currentPage, modalBook!.id)"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

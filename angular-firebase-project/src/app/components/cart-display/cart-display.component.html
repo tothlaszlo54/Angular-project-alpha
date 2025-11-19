@@ -1,0 +1,135 @@
+<div class="cart-display-card">
+  <div class="card shadow-lg">
+    <div class="card-header">
+      <h4 class="mb-0">
+        <i class="fas fa-shopping-cart me-2"></i>
+        Cart
+        <span class="badge bg-light text-dark ms-2">{{
+          getTotalItemCount()
+        }}</span>
+      </h4>
+    </div>
+
+    <div class="card-body">
+      <ng-container *ngIf="cartItems$ | async as cartItems">
+        <div *ngIf="cartItems.length === 0" class="text-center text-muted py-4">
+          <i class="fas fa-shopping-cart fa-3x mb-3"></i>
+          <p class="fs-5">Cart is empty</p>
+          <p>Choose ebooks from our collection!</p>
+        </div>
+
+        <div *ngIf="cartItems.length > 0">
+          <div
+            class="cart-item p-2 border rounded"
+            *ngFor="let item of cartItems"
+          >
+            <!-- Book info -->
+            <div class="row align-items-center mb-2">
+              <div class="col-3">
+                <img
+                  [src]="item.book.imageLink"
+                  [alt]="item.book.title"
+                  class="img-fluid rounded"
+                />
+              </div>
+
+              <div class="col-9">
+                <h6 class="mb-1 text-truncate">{{ item.book.title }}</h6>
+                <small class="text-muted d-block text-truncate">{{
+                  item.book.authors
+                }}</small>
+                <small class="fw-bold text-success">{{
+                  item.book.price | currency : "HUF" : "symbol" : "1.0-0"
+                }}</small>
+              </div>
+            </div>
+
+            <!--quantity and +/- controls -->
+            <div class="row align-items-center">
+              <div class="col-8">
+                <div class="quantity-controls d-flex align-items-center">
+                  <button
+                    class="btn btn-outline-secondary btn-sm me-1"
+                    (click)="decreaseQuantity(item.book.id!, item.quantity)"
+                    [disabled]="item.quantity <= 1"
+                  >
+                    <i class="fas fa-minus"></i>
+                  </button>
+
+                  <span class="mx-1">{{ item.quantity }}</span>
+
+                  <button
+                    class="btn btn-outline-secondary btn-sm ms-1 me-2"
+                    (click)="increaseQuantity(item.book.id!, item.quantity)"
+                  >
+                    <i class="fas fa-plus"></i>
+                  </button>
+
+                  <small class="text-muted">
+                    {{
+                      (item.book.price || 0) * item.quantity
+                        | currency : "HUF" : "symbol" : "1.0-0"
+                    }}
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-4 text-end">
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  (click)="removeItem(item.book.id!)"
+                  title="Remove"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="cart-summary">
+            <div class="row">
+              <div class="col-6">
+                <button
+                  class="btn btn-outline-warning"
+                  (click)="clearCart()"
+                  [disabled]="cartItems.length === 0"
+                >
+                  <i class="fas fa-trash-alt me-2"></i>
+                  Clear Cart
+                </button>
+              </div>
+
+              <div class="col-6 text-end">
+                <div class="total-price">
+                  <h5 class="mb-0">
+                    Total:
+                    <span class="text-success fw-bold">
+                      {{
+                        getTotalPrice() | currency : "HUF" : "symbol" : "1.0-0"
+                      }}
+                    </span>
+                  </h5>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-12">
+                <button
+                  class="btn btn-success btn-lg w-100"
+                  [disabled]="cartItems.length === 0"
+                  (click)="proceedToPlaceOrder()"
+                >
+                  <i class="fas fa-credit-card me-2"></i>
+                  Place Order
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

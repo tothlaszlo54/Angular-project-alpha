@@ -1,0 +1,26 @@
+<div class="book-carousel">
+  <button
+    class="book-carousel__nav book-carousel__nav--prev"
+    (click)="scrollLeft()"
+  >
+    &#10094;
+  </button>
+
+  <div #carousel class="book-carousel__track">
+    <article
+      class="book"
+      *ngFor="let book of books"
+      (click)="navigateBookDetails(book.id)"
+    >
+      <img [src]="book.imageLink" [alt]="book.title + ' borító'" />
+      <h3 class="book__title">{{ book.title }}</h3>
+    </article>
+  </div>
+
+  <button
+    class="book-carousel__nav book-carousel__nav--next"
+    (click)="scrollRight()"
+  >
+    &#10095;
+  </button>
+</div>

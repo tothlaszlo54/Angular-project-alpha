@@ -1,0 +1,174 @@
+<section class="container-fluid bg-color p-5">
+  <div class="container">
+    <div class="container-fluid px-0">
+      <div
+        class="d-flex justify-content-center justify-content-sm-start text-bg-color mb-3 rounded shadow p-2"
+      >
+        <div>
+          <h3>{{ book?.title }}</h3>
+          <p>
+            <span *ngFor="let author of book?.authors; let authorIndex = index"
+              >{{ author }}
+              <span *ngIf="authorIndex < book!.authors.length - 1"
+                >, &nbsp;</span
+              ></span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-5 col-lg-4">
+        <div class="row">
+          <div class="container d-flex justify-content-center">
+            <div class="flip-card mb-3">
+              <div class="flip-card-inner">
+                <div class="card" style="width: 256px; height: 390px">
+                  <img
+                    style="width: 256px; height: 390px"
+                    [src]="book?.imageLink"
+                    alt="{{ book?.title }} cover"
+                  />
+                </div>
+                <div class="flip-card-back card">
+                  <div
+                    class="card-body text-center d-flex align-items-center justify-content-center"
+                  >
+                    <div>
+                      <h5 class="card-title mb-4">More details:</h5>
+                      <p class="card-text">
+                        Published {{ book?.publishedDate }}
+                      </p>
+                      <p class="card-text">by {{ book?.publisher }}</p>
+                      <p class="card-text">{{ book?.pageCount }} pages</p>
+                      <p class="card-text">ISBN: {{ book?.ISBN }}</p>
+                      <p class="card-text">language: {{ book?.language }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="container d-flex justify-content-center">
+            <app-stars [stars]="averageBookRating" [size]="'3rem'"></app-stars>
+
+            <div class="d-flex align-items-end p-1">
+              <p>({{ averageBookRating }})</p>
+            </div>
+          </div>
+        </div>
+        <div class="row text-center py-3">
+          <div class="dropdown-center">
+            <button
+              class="btn dropdown-btn dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ bookStatus || "Put the book on your shelf" }}
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngIf="bookStatus !== 'Wishlist'">
+                <a class="dropdown-item" (click)="setStatus('Wishlist')"
+                  >Wishlist</a
+                >
+              </li>
+              <li *ngIf="bookStatus !== 'Currently Reading'">
+                <a
+                  class="dropdown-item"
+                  (click)="setStatus('Currently Reading')"
+                  >Currently Reading</a
+                >
+              </li>
+              <li *ngIf="bookStatus !== 'Read'">
+                <a class="dropdown-item" (click)="setStatus('Read')">Read</a>
+              </li>
+              <li *ngIf="bookStatus !== ''">
+                <a class="dropdown-item" (click)="setStatus('')"
+                  >Remove from shelf</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-7 col-lg-8">
+        <div class="row">
+          <div class="text-bg-color mb-3 rounded shadow p-2">
+            <h5 class="p-2">Book Description</h5>
+            <hr class="border border-2 border-dark" />
+            <div class="description px-3" [innerHTML]="book?.description"></div>
+            <div class="d-flex justify-content-end">
+              <button
+                class="btn btn-outline-dark border border-dark border-2 fw-bold shadow m-3"
+                data-bs-toggle="modal"
+                data-bs-target="#avatarModal"
+              >
+                See more...
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="container text-bg-color mb-3 rounded shadow p-2">
+            <h5 class="p-2">Community Ratings and Reviews</h5>
+            <hr class="border border-2 border-dark" />
+            <div class="ratings">
+              <div class="row" *ngFor="let rating of ratings">
+                <div class="col-3 col-sm-2 col-md-2 col-lg-2">
+                  <img
+                    class="img-fluid"
+                    src="{{ 'assets/' + rating.avatar + '.png' }}"
+                    alt="avatar-picture"
+                  />
+                </div>
+                <div class="col-9 col-sm-10 col-md-10 col-lg-10">
+                  <p>
+                    {{ rating.userName }}
+                    <app-stars
+                      class="mx-2"
+                      [stars]="rating.stars"
+                      [size]="'1.2rem'"
+                    ></app-stars>
+                  </p>
+
+                  <p>{{ rating.remarkInText }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div
+  class="modal fade modal-text"
+  id="avatarModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          {{ book?.title }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p [innerHTML]="book?.description"></p>
+      </div>
+    </div>
+  </div>
+</div>

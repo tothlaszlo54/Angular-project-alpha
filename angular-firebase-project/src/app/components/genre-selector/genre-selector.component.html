@@ -1,0 +1,21 @@
+<div
+  class="sidebar sidebar--wrapper"
+  [ngClass]="{ 'sidebar--open': sidebarOpen }"
+>
+  <!-- Toggle Button -->
+  <button class="sidebar__toggle" (click)="toggleSidebar()">
+    {{ sidebarOpen ? "Close" : "Search By Genre" }}
+  </button>
+
+  <!-- Sidebar -->
+  <aside class="sidebar__content">
+    <div
+      class="sidebar__tile"
+      *ngFor="let genre of genres"
+      (click)="selectGenre(genre.name)"
+    >
+      <div class="sidebar__icon">{{ genre.icon }}</div>
+      <div class="sidebar__name">{{ genre.name }}</div>
+    </div>
+  </aside>
+</div>

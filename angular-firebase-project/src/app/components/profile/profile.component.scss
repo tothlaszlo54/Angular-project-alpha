@@ -1,0 +1,35 @@
+.main-color {
+  background-color: #edf3c9;
+}
+
+.nav-link {
+  color: black !important;
+  &:hover {
+    color: white !important;
+  }
+}
+
+.dropdown-item .active,
+.dropdown-item:active {
+  background-color: #d97e3b !important;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+}
+.modal-avatar {
+  width: 100px;
+  height: 100px;
+}
+
+.modal-content,
+.modal-header,
+.modal-body,
+.modal-footer {
+  background-color: #dde7c7;
+}
+.bg-color {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+}

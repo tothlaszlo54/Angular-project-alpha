@@ -1,0 +1,41 @@
+<div class="row gy-5">
+  <div class="col">
+    <h5 class="p-2">Community Ratings and Reviews</h5>
+    <hr class="border border-2 border-dark" />
+    <div class="ratings">
+      <div
+        class="row my-3 py-3 px-2 rounded position-relative"
+        *ngFor="let review of myReviews; let odd = odd; let even = even"
+        [ngClass]="{ 'bg-light': even, 'bg-odd': odd }"
+      >
+        <div class="col-3 col-sm-2 col-md-2 col-lg-2">
+          <img
+            class="img-fluid"
+            [src]="review.book.imageLink"
+            alt="avatar-picture"
+          />
+        </div>
+        <div class="col-6 col-sm-10 col-md-10 col-lg-10 position-relative">
+          <p>
+            {{ review.book.authors }}: {{ review.book.title }}
+            <app-stars
+              class="mx-2"
+              [stars]="review.stars"
+              [size]="'1.5rem'"
+            ></app-stars>
+            ({{ review.stars }})
+          </p>
+
+          <p class="text-d">{{ review.remarkInText }}</p>
+        </div>
+        <div class="col-3">
+          <button
+            class="btn btn-outline-dark border border-dark border-2 fw-bold shadow position-absolute bottom-0 end-0 m-3 edit-btn"
+          >
+            Edit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

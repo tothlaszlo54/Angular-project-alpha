@@ -1,0 +1,12 @@
+<section class="search-bar-container d-flex justify-content-center">
+  <section class="input-group pt-4 d-flex justify-content-center">
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="searchTerm"
+      placeholder="Search for a book..."
+      (ngModelChange)="onSearchTermChange($event)"
+    />
+    <button class="btn rounded-pill ms-4" (click)="search()">Search</button>
+  </section>
+</section>

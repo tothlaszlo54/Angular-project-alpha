@@ -1,0 +1,192 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="section p-3">
+        <div class="container">
+          <div class="mt-4 mb-4">
+            <h2>Cart Summary</h2>
+            <div class="cart-items mb-4">
+              <div
+                *ngFor="let item of cartItems$ | async"
+                class="cart-item d-flex justify-content-between align-items-center mb-2 p-2 border rounded"
+              >
+                <div class="item-details">
+                  <span class="item-title fw-bold">{{ item.book.title }}</span>
+                  <span class="item-quantity text-muted ms-2"
+                    >x{{ item.quantity }}</span
+                  >
+                </div>
+                <div class="item-price">
+                  <span class="fw-bold">
+                    {{
+                      item.book.price == null
+                        ? 0
+                        : (item.book.price * item.quantity | currency)
+                    }}
+                    Ft
+                  </span>
+                </div>
+              </div>
+              <hr />
+              <div
+                class="total-price d-flex justify-content-between align-items-center"
+              >
+                <h4>Total:</h4>
+                <h4 class="text-primary">{{ getTotalPrice() | currency }}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="section p-3">
+        <div class="container">
+          <div>
+            <h2>Place Order</h2>
+            <form #orderForm="ngForm" (ngSubmit)="onSubmit(orderForm)">
+              <!-- Card Number -->
+              <div class="form-group input-group flex-nowrap mb-3">
+                <span class="input-group-text" id="addon-wrapping"
+                  >Card Number</span
+                >
+                <input
+                  type="text"
+                  id="cardNumber"
+                  name="cardNumber"
+                  aria-label="cardNumber"
+                  aria-describedby="addon-wrapping"
+                  [(ngModel)]="orderData.cardNumber"
+                  #cardNumber="ngModel"
+                  required
+                  placeholder="1234 5678 9012 3456"
+                  class="form-control input-group-text"
+                  maxlength="19"
+                />
+                <div
+                  *ngIf="cardNumber.invalid && cardNumber.dirty"
+                  class="error-message text-danger"
+                >
+                  Card number is required
+                </div>
+              </div>
+
+              <!-- Expiry Date -->
+              <div class="form-group input-group flex-nowrap mb-3">
+                <span class="input-group-text" id="addon-wrapping"
+                  >Expiry Date</span
+                >
+                <input
+                  type="text"
+                  id="expiryDate"
+                  name="expiryDate"
+                  [(ngModel)]="orderData.expiryDate"
+                  #expiryDate="ngModel"
+                  required
+                  placeholder="MM/YY"
+                  class="form-control"
+                  maxlength="5"
+                />
+                <div
+                  *ngIf="expiryDate.invalid && expiryDate.dirty"
+                  class="error-message text-danger"
+                >
+                  Expiry date is required
+                </div>
+              </div>
+
+              <!-- CVV -->
+              <div class="form-group input-group flex-nowrap mb-3">
+                <span class="input-group-text" id="addon-wrapping"
+                  >CVV/CVC</span
+                >
+                <input
+                  type="text"
+                  id="cvv"
+                  name="cvv"
+                  [(ngModel)]="orderData.cvv"
+                  #cvv="ngModel"
+                  required
+                  placeholder="123"
+                  class="form-control"
+                  maxlength="4"
+                />
+                <div
+                  *ngIf="cvv.invalid && cvv.dirty"
+                  class="error-message text-danger"
+                >
+                  CVV is required
+                </div>
+              </div>
+
+              <!-- Card Owner -->
+              <div class="form-group input-group flex-nowrap mb-3">
+                <span class="input-group-text" id="addon-wrapping"
+                  >Card Owner</span
+                >
+                <input
+                  type="text"
+                  id="cardOwner"
+                  name="cardOwner"
+                  [(ngModel)]="orderData.cardOwner"
+                  #cardOwner="ngModel"
+                  required
+                  placeholder="John Doe"
+                  class="form-control"
+                />
+                <div
+                  *ngIf="cardOwner.invalid && cardOwner.dirty"
+                  class="error-message text-danger"
+                >
+                  Card owner name is required
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  [(ngModel)]="orderData.email"
+                  #email="ngModel"
+                  required
+                  email
+                  placeholder="example@email.com"
+                  class="form-control"
+                />
+                <div
+                  *ngIf="email.invalid && email.dirty"
+                  class="error-message text-danger"
+                >
+                  <span *ngIf="email.errors?.['required']"
+                    >Email is required</span
+                  >
+                  <span *ngIf="email.errors?.['email']"
+                    >Please enter a valid email</span
+                  >
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="form-group text-end mt-4">
+                <button
+                  type="submit"
+                  class="place-order-btn"
+                  [disabled]="orderForm.invalid"
+                  [ngClass]="{
+                    'btn-disabled': orderForm.invalid,
+                    'btn-sold': !orderForm.invalid
+                  }"
+                >
+                  Place Order
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

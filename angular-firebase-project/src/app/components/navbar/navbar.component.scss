@@ -1,0 +1,33 @@
+.custom-navbar {
+  background-color: #dde7c7;
+
+  .nav-link {
+    color: #2d462a !important;
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 1rem;
+    text-shadow: 6px 6px 9px #ababab;
+    &:hover {
+      color: #d97e3b !important;
+    }
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .login,
+  .logout {
+    background-color: #4f772d;
+    color: white;
+  }
+  .signup {
+    background-color: #d4a373;
+    color: white;
+  }
+  img {
+    width: 80px;
+    height: 80px;
+  }
+}

@@ -1,0 +1,55 @@
+<section class="container-md">
+  <div class="row justify-content-center">
+    <div class="col-6 mt-3 login-form">
+      <h4 class="p-3 text-center">Login</h4>
+      <form *ngIf="loginForm" [formGroup]="loginForm" (ngSubmit)="login()">
+        <!-- Email -->
+        <div class="form-floating">
+          <input
+            formControlName="email"
+            class="form-control"
+            id="email"
+            type="email"
+          />
+          <label for="email">Email address</label>
+          <div
+            *ngIf="email?.invalid && email?.touched"
+            class="small text-danger"
+          >
+            <span *ngIf="email?.touched">An email is required.</span>
+            <span *ngIf="email?.invalid">Email is not valid.</span>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-floating mt-3">
+          <input
+            formControlName="password"
+            class="form-control"
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            autocomplete="current-password"
+          />
+          <label for="password">Password</label>
+          <button
+            class="btn btn-sm btn-outline-secondary pwd-toggle mt-3"
+            (click)="togglePasswordVisibility($event, 'password')"
+            type="button"
+            aria-label="Show password again"
+            title="show/hide"
+          >
+            {{ showPassword ? "Hide" : "Show" }}
+          </button>
+        </div>
+
+        <!-- Login btn -->
+        <div class="text-center">
+          <button [disabled]="loginForm.invalid" type="submit" class="btn my-3">
+            Sign-in
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<hr />

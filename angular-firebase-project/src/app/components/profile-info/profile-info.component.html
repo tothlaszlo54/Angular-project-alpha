@@ -1,0 +1,109 @@
+<div class="row gy-5 d-flex justify-content-center">
+  <div class="col-5">
+    <p class="fs-6 text-center">
+      *You can update your user data by completing the entire form – even the
+      fields that have not changed must be filled in with their unchanged
+      values.
+    </p>
+  </div>
+  <div class="col-6">
+    <h4 class="pb-3 text-center mt-3">Update Profile Settings</h4>
+    <form *ngIf="regForm" [formGroup]="regForm">
+      <!-- Email -->
+      <div *ngIf="email" class="form-floating">
+        <input
+          formControlName="email"
+          class="form-control"
+          id="email"
+          type="email"
+        />
+        <label for="email">Email address</label>
+        <div *ngIf="email.invalid && email.touched" class="small text-danger">
+          <span *ngIf="email?.errors?.['required']">An email is required.</span>
+          <span *ngIf="email?.errors?.['email']">Email is not valid.</span>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-floating mt-3">
+        <input
+          formControlName="password"
+          class="form-control"
+          type="password"
+          id="password"
+        />
+        <label for="password">Password</label>
+        <div
+          *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+          class="small text-danger"
+        >
+          <small *ngIf="password?.errors?.['required']"
+            >Password is required</small
+          >
+          <small *ngIf="password?.errors?.['minlength']">
+            Minimum
+            {{ password?.errors?.['minlength'].requiredLength }} characters.
+          </small>
+          <small *ngIf="password?.errors?.['pattern']">
+            Password must contain at least one number, one uppercase and a
+            lowercase letter and at least 7 characters <br />
+            password cannot conatain whitespace.
+          </small>
+        </div>
+      </div>
+
+      <!-- Confirm password -->
+      <div class="form-floating mt-3">
+        <input
+          formControlName="confirmPassword"
+          class="form-control"
+          type="password"
+          id="confirmPassword"
+          [ngClass]="confirmPasswordClass"
+          (keyup)="checkPasswords()"
+        />
+        <label for="confirmPassword">Confirm your password</label>
+
+        <small
+          *ngIf="!passwordsMatching && isConfirmPasswordDirty"
+          class="small text-danger"
+        >
+          Passwords did not match.
+        </small>
+
+        <small
+          *ngIf="
+            confirmPassword?.touched && confirmPassword?.hasError('required')
+          "
+          class="small text-danger"
+        >
+          Confirmation is required.
+        </small>
+      </div>
+
+      <!-- Select genre  -->
+      <div class="my-5">
+        <ng-select
+          [items]="options"
+          [multiple]="true"
+          [(ngModel)]="selectedOptions"
+          placeholder="Select your favourite genres..."
+          formControlName="favGenres"
+        >
+        </ng-select>
+      </div>
+
+      <!-- Submit Button-->
+      <div class="text-center">
+        <button
+          [disabled]="regForm.invalid"
+          class="btn mt-2 text-center reg-btn"
+          id="regButton"
+          type="submit"
+        >
+          Registration
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

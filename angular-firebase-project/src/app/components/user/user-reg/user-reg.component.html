@@ -1,0 +1,154 @@
+<section class="container-md">
+  <div class="row justify-content-center">
+    <div class="col-6 reg-form mb-3">
+      <h4 class="pb-3 text-center mt-3">Registration</h4>
+      <form *ngIf="regForm" [formGroup]="regForm" (ngSubmit)="createUser()">
+        <!-- UserName -->
+        <div *ngIf="userName" class="form-floating">
+          <input
+            formControlName="userName"
+            class="form-control"
+            id="userName"
+            type="text"
+          />
+          <label for="userName">Username </label>
+          <div
+            *ngIf="userName.invalid && userName.touched && userName.dirty"
+            class="small text-danger"
+          >
+            <span>Username is required.</span>
+          </div>
+        </div>
+        <!-- Email -->
+        <div *ngIf="email" class="form-floating mt-3">
+          <input
+            formControlName="email"
+            class="form-control"
+            id="email"
+            type="email"
+          />
+          <label for="email">Email address</label>
+          <div
+            *ngIf="email.invalid && email.touched && email?.errors?.['required'] && email.dirty"
+            class="small text-danger"
+          >
+            Email is required.
+          </div>
+          <div
+            *ngIf="email.invalid && email?.errors?.['email'] && email.touched && email.dirty"
+            class="small text-danger"
+          >
+            Email is not valid.
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-floating mt-3">
+          <input
+            formControlName="password"
+            class="form-control"
+            type="password"
+            id="password"
+            autocomplete="new-password"
+          />
+          <label for="password">Password</label>
+
+          <div
+            *ngIf="password?.invalid && password?.dirty && password?.touched && password?.errors?.['required']"
+            class="small text-danger"
+          >
+            Password is required
+          </div>
+          <div
+            *ngIf="password?.invalid && password?.dirty && password?.touched && password?.errors?.['minlength']"
+            class="small text-danger"
+          >
+            Minimum
+            {{ password?.errors?.['minlength'].requiredLength }} characters.
+          </div>
+          <div
+            *ngIf="password?.invalid && password?.dirty && password?.touched && password?.errors?.['pattern']"
+            class="small text-danger"
+          >
+            Password must contain at least one number and one uppercase. <br />
+            Password cannot conatain whitespace.
+          </div>
+        </div>
+
+        <!-- Confirm password -->
+        <div class="form-floating mt-3">
+          <input
+            formControlName="confirmPassword"
+            class="form-control"
+            type="password"
+            id="confirmPassword"
+            [ngClass]="confirmPasswordClass"
+            (keyup)="checkPasswords()"
+          />
+          <label for="confirmPassword">Confirm your password</label>
+
+          <small
+            *ngIf="!passwordsMatching && isConfirmPasswordDirty"
+            class="small text-danger"
+          >
+            Passwords did not match.
+          </small>
+
+          <small
+            *ngIf="
+              confirmPassword?.touched && confirmPassword?.hasError('required')
+            "
+            class="small text-danger"
+          >
+            Confirmation is required.
+          </small>
+        </div>
+
+        <!-- Select genre  -->
+        <div class="mt-3">
+          <ng-select
+            [items]="options"
+            [multiple]="true"
+            [(ngModel)]="selectedOptions"
+            placeholder="Select your favourite genres...."
+            formControlName="favouriteGenres"
+          >
+          </ng-select>
+        </div>
+
+        <!-- Checkbox -->
+
+        <div class="form-check mt-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="gridCheck"
+            formControlName="grid"
+          />
+          <label class="form-check-label" for="gridCheck">
+            I accept the
+            <a href="https://www.progmasters.hu/">terms and agreements</a>.
+          </label>
+        </div>
+
+        <!-- Submit Button-->
+        <div class="text-center">
+          <button
+            [disabled]="regForm.invalid"
+            class="btn mt-2 text-center reg-btn"
+            id="regButton"
+            type="submit"
+          >
+            Sign-up
+          </button>
+
+          <!-- Sign up with Google -->
+          <p class="my-3">or sign up with</p>
+          <button class="btn btn-danger mb-3" (click)="loginWithGoogle()">
+            Google
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

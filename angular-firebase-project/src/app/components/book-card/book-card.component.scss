@@ -1,0 +1,42 @@
+.card {
+  box-shadow: 7px 9px 19px 0px #000000;
+  background-color: #f2f2f2;
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  transition: transform 0.2s ease;
+
+  .card-title {
+    color: #2a4d14;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .text-container {
+    width: 100%;
+  }
+  &:hover {
+    scale: 1.05;
+  }
+}
+
+.loading-text {
+  color: #2a4d14;
+  font-size: xx-large;
+  text-align: center;
+}
+
+nav li a {
+  background-color: #d97e3b;
+  color: white !important;
+  &:hover {
+    cursor: pointer;
+    border: 2px solid black;
+  }
+}
+
+.disabled a {
+  background-color: grey !important;
+}

@@ -1,0 +1,115 @@
+/* === ALAP LAYOUT === */
+.main-container {
+  background-color: #edf3c9;
+  padding-bottom: 8%;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+}
+
+.main-content {
+  @media (max-width: 768px) {
+    padding-right: 0;
+  }
+}
+
+/* === OLDALSÁV ÉS MOBIL GENRE === */
+.desktop-genre {
+  display: block;
+
+  @media (max-width: 768px) {
+    display: none; // sidebar eltűnik mobilon
+  }
+}
+
+.mobile-genre {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    width: 100%;
+    margin: 1rem 0; // hero alá
+  }
+}
+
+/* === GOMBOK === */
+.btn {
+  background-color: #4f772d;
+  color: white;
+  border-radius: 20px;
+
+  &:hover {
+    background: #2d462a;
+  }
+
+  &.btn-go-store a {
+    text-decoration: none;
+    color: whitesmoke;
+  }
+}
+
+.textAndBackButton {
+  margin: 3% 5% 0;
+}
+
+/* === KÖNYVKÁRTYÁK === */
+.exact-match-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 5rem;
+
+  app-book-card {
+    width: 100%;
+  }
+
+  &.single-result app-book-card {
+    max-width: 250px;
+  }
+
+  &:not(.single-result) app-book-card {
+    max-width: 400px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    app-book-card {
+      max-width: 200px !important;
+    }
+  }
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+  padding: 2rem 5rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+/* === KARUSZEL SZEKCIÓK === */
+.first-carousel,
+.middle-carousel,
+.last-carousel {
+  color: #2d462a;
+  padding: 4rem;
+  margin: 2rem 5rem;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+  }
+}
+
+.middle-carousel {
+  background-color: #f9fbe7;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

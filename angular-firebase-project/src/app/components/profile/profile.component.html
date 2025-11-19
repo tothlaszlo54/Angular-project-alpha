@@ -1,0 +1,124 @@
+<div class="container-fluid main-color">
+  <div class="container">
+    <div class="row pt-5">
+      <div class="col-4 text-center">
+        <img
+          [src]="avatarPath"
+          alt="Profile picture"
+          class="img-fluid avatar"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        />
+      </div>
+      <div class="col-4 bg-color p-3">
+        <div>
+          <p class="fs-5">
+            Email: <span class="ms-3"> {{ currentUser?.email }}</span>
+          </p>
+        </div>
+        <div>
+          <p class="fs-5">
+            Name: <span class="ms-3"> {{ currentUser?.userName }}</span>
+          </p>
+        </div>
+        <div>
+          <p class="fs-5">
+            Finished books:
+            <span class="ms-3"> {{ currentUser?.readBooks?.length }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <section class="row text-center pt-3">
+      <div class="col d-flex justify-content-start">
+        <button
+          class="btn btn-outline-dark border border-dark border-2 fw-bold shadow m-3"
+          (click)="navigateTo('profile-info')"
+        >
+          Profile settings
+        </button>
+
+        <button
+          class="dropdown-toggle btn btn-outline-dark border border-dark border-2 fw-bold shadow m-3"
+          data-bs-toggle="dropdown"
+          type="button"
+        >
+          Bookshelves
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a
+              class="dropdown-item"
+              (click)="navigateTo('bookshelf', 'readBooks')"
+            >
+              Read books
+            </a>
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              (click)="navigateTo('bookshelf', 'wishlist')"
+            >
+              Wishlist
+            </a>
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              (click)="navigateTo('bookshelf', 'currentlyReading')"
+            >
+              Currently Reading
+            </a>
+          </li>
+        </ul>
+
+        <button
+          class="btn btn-outline-dark border border-dark border-2 fw-bold shadow m-3"
+          (click)="navigateTo('reviews')"
+        >
+          My reviews
+        </button>
+      </div>
+    </section>
+    <section class="container py-5">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+</div>
+<div
+  class="modal fade modal-text"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Chooose an avatar
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container d-flex justify-content-evenly flex-wrap">
+          <div *ngFor="let avatar of avatarOptions">
+            <img
+              (click)="setAvatar(avatar)"
+              [src]="'assets/' + avatar + '.png'"
+              [alt]="avatar"
+              class="modal-avatar"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
